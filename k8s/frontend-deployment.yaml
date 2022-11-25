@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
+  namespace: exam
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
