@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: adnaneelbouhali/exam_k8s:image-frontend
+          ports:
+            - containerPort: 80
+              name: http-port
+          env:
+            - name: CLOUDL_SERVER
+              value: backend-service
+  selector:
+    matchLabels:
+      app: frontend
