@@ -4,7 +4,7 @@ metadata:
   name: frontend-deployment
   namespace: exam
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -12,13 +12,24 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: adnaneelbouhali/exam_k8s:image-frontend
+          image: adnaneelbouhali/configmap-test:configmap-test-front
           ports:
             - containerPort: 80
               name: http-port
+          volumeMounts:
+          - mountPath: /etc/nginx
+            name: nginx-configmap
+            readOnly: true
           env:
             - name: CLOUDL_SERVER
               value: backend-service
+      volumes:
+      - name: nginx-configmap
+        configMap:
+          name: nginx-configmap
+          items:
+            - key: nginx.conf
+              path: nginx.conf
   selector:
     matchLabels:
       app: frontend
