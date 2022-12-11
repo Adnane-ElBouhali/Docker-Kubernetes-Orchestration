@@ -26,7 +26,7 @@ app.use('/api/', (req, res, next) => {
 
 mongoose
     .connect(
-        `mongodb://mongo:27017/exam`, {
+        `mongodb://mongodb-service:27017/exam`, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })

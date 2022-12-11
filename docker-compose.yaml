@@ -1,31 +1,33 @@
 services:
-  backend-c:
+  backend:
     build:
       context: ./backend
     ports:
       - "5000:5000"
     networks: 
-      - mern-app-network-c
+      - mern-app-network
     depends_on:
-      - mongo
-  frontend-c:
+      - mongodb-service
+  frontend:
     build: 
       context: ./frontend
     ports:
       - "80:80"
     networks: 
-      - mern-app-network-c
-  mongo:
+      - mern-app-network
+    depends_on:
+      - backend
+  mongodb-service:
     image: mongo
     ports:
       - "27017:27017"
     networks:
-      - mern-app-network-c
+      - mern-app-network
     volumes:
-      - mongodb-volume-c:/app
+      - mongodb-volume:/var/lib/mongodb/data
 networks: 
-  mern-app-network-c:
+  mern-app-network:
     driver: bridge
 volumes:
-  mongodb-volume-c:
+  mongodb-volume:
     driver: local
