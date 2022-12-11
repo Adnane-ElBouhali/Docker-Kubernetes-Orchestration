@@ -26,7 +26,7 @@ app.use('/api/', (req, res, next) => {
 
 mongoose
     .connect(
-        `mongodb://mongo:27017/exam`, {
+        `mongodb://mongodb-service:27017/exam`, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
@@ -118,6 +118,6 @@ app.get('/', (req, res) => {
     res.send('server up and running.');
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 
 server.listen(port, () => console.log(`Server v8 up and running on port ${port} !`));
