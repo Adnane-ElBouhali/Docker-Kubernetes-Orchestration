@@ -8,7 +8,7 @@ COPY ./package-lock.json /frontend//package-lock.json
 RUN npm ci
 RUN npm install react-scripts -g
 COPY . /frontend
-RUN npm run build
+RUN npm run build 
 
 # Stage 2 (production environment)
 FROM nginx:1.16.0-alpine
