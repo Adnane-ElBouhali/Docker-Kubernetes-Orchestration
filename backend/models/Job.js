@@ -8,7 +8,7 @@ const JobSchema = new Schema({
         required: true
     },
     userId: {
-        type: String,
+        type: String, 
         required: true
     },
     status: {
