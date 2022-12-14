@@ -12,18 +12,13 @@ spec:
     spec:
       containers:
         - name: backend
-          image: adnaneelbouhali/aseds-exam-part2:backend-imagev2
+          image: adnaneelbouhali/aseds-exam-part2:backend-imagev3
           env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-secret
-                key: USER_NAME
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mongodb-secret
-                key: PASSWORD
+            - name: "CONNECTION_STRING"
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-instance-admin-my-user
+                  key: connectionString.standardSrv
           ports:
             - containerPort: 8000
               name: nodejs-port

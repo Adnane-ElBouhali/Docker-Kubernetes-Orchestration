@@ -24,10 +24,14 @@ app.use('/api/', (req, res, next) => {
     next();
 });
 
-const username = process.env.MONGO_INITDB_ROOT_USERNAME;
-const password = process.env.MONGO_INITDB_ROOT_PASSWORD;
+// const username = process.env.MONGO_INITDB_ROOT_USERNAME;
+// const password = process.env.MONGO_INITDB_ROOT_PASSWORD;
 
-const url = "mongodb://"+username+":"+password+"@mongodb-service/exam?authSource=admin";
+// const url = "mongodb://"+username+":"+password+"@mongodb-service/exam?authSource=admin";
+
+// console.log(url)
+
+const url = process.env.CONNECTION_STRING
 
 console.log(url)
 
