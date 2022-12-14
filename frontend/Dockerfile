@@ -1,28 +1,18 @@
-# => Build container
-FROM node:10 as build
+# This is a multi-stage build docker file
 
+# Stage 1 (build environment)
+FROM node:10-alpine as build
 WORKDIR /frontend
-
-COPY package.json /frontend/package.json
-
-RUN npm install
-
+COPY ./package.json /frontend//package.json
+COPY ./package-lock.json /frontend//package-lock.json
+RUN npm ci
 RUN npm install react-scripts -g
-
 COPY . /frontend
-
 RUN npm run build
 
-# => Run container
-FROM nginx:1.16.0
-
+# Stage 2 (production environment)
+FROM nginx:1.16.0-alpine
 COPY --from=build /frontend/build /usr/share/nginx/html
-
-COPY --from=build /app/dist /frontend/static
-
-RUN rm /etc/nginx/conf.d/default.conf
-
+# COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf   #since we deleted this file, this line is useless
 EXPOSE 80
-
-# Start Nginx server
-CMD ["/bin/bash", "-c", "nginx -g \"daemon off;\""]
+CMD ["nginx", "-g", "daemon off;"]

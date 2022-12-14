@@ -1,11 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodb-pvc
+  name: mongodb-pvc # Name of the persistent volume claim
   namespace: exam
 spec:
+  storageClassName: local-storage # Name of the storage class
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce # Indicates this claim can only be read and written once
   resources:
     requests:
       storage: 1Gi

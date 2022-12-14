@@ -9,4 +9,4 @@ spec:
       protocol: TCP
   selector:
     app: mongodb
-  type: NodePort
+  clusterIP: None

@@ -4,7 +4,7 @@ metadata:
   name: backend-deployment
   namespace: exam
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -12,10 +12,42 @@ spec:
     spec:
       containers:
         - name: backend
-          image: adnaneelbouhali/exam_k8s:image-backend
+          image: adnaneelbouhali/aseds-exam-part2:backend-imagev2
+          env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: USER_NAME
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: PASSWORD
           ports:
             - containerPort: 8000
               name: nodejs-port
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: nodejs-port
+            initialDelaySeconds: 15
+            timeoutSeconds: 30
+            failureThreshold: 1
+            periodSeconds: 10       
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: nodejs-port
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          startupProbe:
+            httpGet:    
+              path: /startz
+              port: nodejs-port
+            failureThreshold: 30
+            periodSeconds: 10
   selector:
     matchLabels:
       app: backend
+      

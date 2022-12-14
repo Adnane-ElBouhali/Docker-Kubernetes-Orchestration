@@ -24,9 +24,15 @@ app.use('/api/', (req, res, next) => {
     next();
 });
 
+const username = process.env.MONGO_INITDB_ROOT_USERNAME;
+const password = process.env.MONGO_INITDB_ROOT_PASSWORD;
+
+const url = "mongodb://"+username+":"+password+"@mongodb-service/exam?authSource=admin";
+
+console.log(url)
+
 mongoose
-    .connect(
-        `mongodb://mongodb-service/exam`, {
+    .connect(url, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
@@ -116,6 +122,18 @@ app.use("/api/jobs", jobs);
 
 app.get('/', (req, res) => {
     res.send('server up and running.');
+});
+
+app.get('/readyz', (req, res) => {
+    res.status(200).send();
+});
+
+app.get('/livez', (req, res) => {
+    res.status(200).send();
+});
+
+app.get('/startz', (req, res) => {
+    res.status(200).send();
 });
 
 const port = process.env.PORT || 8000;
