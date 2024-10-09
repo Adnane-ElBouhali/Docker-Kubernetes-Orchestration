@@ -97,7 +97,6 @@ Ensure you have the following installed:
 
 ## Author
 - **Adnane El Bouhali**  
-  Master’s Student, Institut National des Postes et Télécommunications (ASEDS INE2)
 
 ## License
 This project is licensed under the MIT License.
